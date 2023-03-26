@@ -31,7 +31,7 @@ public class ListNode {
     StringBuilder sb = new StringBuilder();
     ListNode cur = this;
     while (null != cur) {
-      sb.append(cur.val + "->");
+      sb.append(cur.val).append("->");
       cur = cur.next;
     }
     sb.append("NULL");
