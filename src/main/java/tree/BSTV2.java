@@ -234,6 +234,24 @@ public class BSTV2<E extends Comparable<E>> {
         return node;
     }
 
+    public void remove(E e) {
+        root = remove(root, e);
+    }
+
+    private Node remove(Node node, E e) {
+        if (node == null) {
+            return null;
+        }
+        if (e.compareTo(node.e) < 0) {
+            Node res = remove(node.left, e);
+            size--;
+            return res;
+        } else if (e.compareTo(node.e) > 0) {
+
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
