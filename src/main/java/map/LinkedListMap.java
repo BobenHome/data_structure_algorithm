@@ -34,11 +34,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
 
         @Override
         public String toString() {
-            return "Node{" +
-                    "key=" + key +
-                    ", value=" + value +
-                    ", next=" + next +
-                    '}';
+            return key.toString() + ": " + value.toString();
         }
     }
 
