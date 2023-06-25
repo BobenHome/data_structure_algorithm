@@ -58,7 +58,49 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
 
     @Override
     public V remove(K key) {
+
+        Node node = getNode(root, key);
+        if (null != node) {
+            remove(root, key);
+            return node.value;
+        }
         return null;
+    }
+
+    private Node remove(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (key.compareTo(node.key) < 0) {
+            node.left = remove(node.left, key);
+            return node;
+        } else if (key.compareTo(node.key) > 0) {
+            node.right = remove(node.right, key);
+            return node;
+        } else {
+            // 待删除节点左子树为空的情况
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            // 待删除节点右子树为空的情况
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+            // 待删除节点左右子树均不为空的情况
+            // 找到比待删除节点大的最小节点，即待删除节点右子树的最小节点
+            // 用这个节点顶替待删除节点的位置
+            Node successor = minimum(node.right);
+            successor.right = removeMin(node.right);
+            successor.left = node.left;
+            node.left = node.right = null;
+            return successor;
+        }
     }
 
     @Override
@@ -96,9 +138,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
         if (null == node) {
             return null;
         }
-        if (node.key.compareTo(key) < 0) {
+        if (key.compareTo(node.key) < 0) {
             return getNode(node.left, key);
-        } else if (node.key.compareTo(key) > 0) {
+        } else if (key.compareTo(node.key) > 0) {
             return getNode(node.right, key);
         } else {
             return node;
